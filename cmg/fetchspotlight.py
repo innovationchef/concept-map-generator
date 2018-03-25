@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 
-import requests
 import logging
+import requests
 
 
 logging.basicConfig(level=logging.INFO)
