@@ -5,14 +5,6 @@ from StanfordOpenIE import conceptmap
 from neuralcoref import Coref
 
 
-endpoint = 'http://localhost:8983/solr/glove/'
-
-# raw_text = "Our earth has only one satellite, that is, the moon. Its diametre is only one-quarter that of the earth. It appears so big because it is nearer to our planet than other celestial bodies. It is about 3,84,400 km away from us. Now you can compare the distance of the earth from the sun and that from the moon."
-# raw_text = "All the eight planets of the solar system move around the sun in fixed paths. These paths are elongated. They are called orbits. Mercury is nearest to the sun. It takes only about 88 days to complete one round along its orbit. Venus is considered as Earths-twin because its size and shape are very much similar to that of the earth."
-# raw_text = "Plants are an important source of food for both humans and animals. Grains like rice and wheat, fruits and vegetables, pulses, sugar and spices comes from a variety of plants. They also provide us oils like sunflower, mustard and groundnut oil which is used as a cooking fuel. Half of the food that we eat daily comes from just two crops: rice and wheat. Rice is used to make boiled rice, idlis and dosa. Wheat is grinded to make chapattis, noodles, bread etc. Not just solid items but plants are also source of liquid items like tea and coffee."
-raw_text = "Pluto is the smallest planet in the universe. Pluto is the last planet in solar system."
-
-
 ###################### Co-REFERENCE RESOUTION #############################
 # coref = Coref()
 # clusters = coref.one_shot_coref(utterances=unicode(text))
@@ -38,13 +30,13 @@ def extractRel(raw_text, endpoint):
 
 	concept_pairs = conceptsimilarity.filter_pairs(text, endpoint)
 	for concept1, concept2 in concept_pairs:
-		print concept1, concept2
 		sentences = text.split('.')
 		for sentence in sentences:
 			if concept1 in sentence and concept2 in sentence:
-				print sentence
 				with open(temppath+tempfile, 'w') as f:
 					f.write(sentence)
 					f.close()
-				relation_tuples.append(conceptmap.relations(tempfile))
+				for sub, rel, pred in conceptmap.relations(tempfile):
+					if ((concept1 in sub) and (concept2 in pred)) or ((concept1 in pred) and (concept2 in sub)):
+						relation_tuples.append((sub, rel, pred))
 	return relation_tuples
