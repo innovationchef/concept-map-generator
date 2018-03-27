@@ -1,12 +1,8 @@
 #!/usr/bin/env python2
 
-import logging
 import json
 
 from cmg import fetchspotlight
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
 
 #Functions
