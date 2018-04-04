@@ -1,0 +1,8 @@
+numpy
+itertools
+json
+lxml
+requests
+canonicaljson
+networkx
+matplotlib
