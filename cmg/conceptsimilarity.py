@@ -18,7 +18,7 @@ def filter_pairs(text, endpoint):
 		concept1, concept2 = pair
 		vector1 = vectorretriever.search(concept1.lower(), endpoint)
 		vector2 = vectorretriever.search(concept2.lower(), endpoint)
-		if cosine(vector1, vector2) > 0.4:
+		if cosine(vector1, vector2) > 0.32:
 			filtered_pairs.append((concept1, concept2))
 
 	return filtered_pairs

@@ -49,7 +49,7 @@ def stanford_ie(input_filename):
 
     with open(out, 'r') as output_file:
         results_str = output_file.readlines()
-        logger.info(results_str)
+        # logger.info(results_str)
     os.remove(out)
 
     results = process_entity_relations(results_str)
